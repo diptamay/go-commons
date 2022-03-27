@@ -128,8 +128,8 @@ type mockStatsD struct {
 	mock.Mock
 }
 
-func (s *mockStatsD) New(addr string) (*statsd.Client, error) {
-	s.Called(addr)
+func (s *mockStatsD) New(addr string, options ...statsd.Option) (*statsd.Client, error) {
+	s.Called(addr, options)
 	return &statsd.Client{}, nil
 }
 

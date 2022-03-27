@@ -2,9 +2,10 @@ package doggie
 
 import (
 	"fmt"
-	"github.com/DataDog/datadog-go/statsd"
 	"sync"
 	"time"
+
+	"github.com/DataDog/datadog-go/statsd"
 )
 
 const noSampling = 1
@@ -103,7 +104,7 @@ func (d *dataDogClientImpl) Namespace() string {
 }
 
 type dependencies struct {
-	New func(string) (*statsd.Client, error)
+	New func(string, ...statsd.Option) (*statsd.Client, error)
 }
 
 var packageDependencies *dependencies
