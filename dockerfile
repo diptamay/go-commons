@@ -1,4 +1,4 @@
-FROM <docker_url>/core/golang-buildtools:1.13.8 as GoBuildStage
+FROM <docker_base_url/golang-buildtools:1.13.8 as GoBuildStage
 WORKDIR /srv/package
 
 USER root
