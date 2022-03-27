@@ -2,3 +2,5 @@
 .vscode
 .idea
 *.iml
+vendor
+go.sum

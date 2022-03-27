@@ -69,28 +69,8 @@ unit tests with verbosity: `make unit-verbose`
 1. ```go mod tidy``` to pull newest dependencies or new dependencies
 2. Double check go.mod looks correct
 3. ```go mod vendor``` to bring dependencies into vendor folder
-holl
 
-### Steps to update module to artifactory
-
-#### For first time set-up reference:
-
-First time setup:     ```jfrog rt config```      (It sets up the basic config for the local jfrog cli on your machine)
-It goes through following prompts
-
-    ```
-    Artifactory server ID [Default-Server]:   <press enter>
-
-    Artifactory URL: enter <YOUR_ARTIFACTOR_URL> . (with out tags)
-
-    Access token (Leave blank for username and password/API key):  <press enter>
-
-    User: <your username>
-
-    Password/API key:  <your password>
-    ```
-
-#### Publishing steps
+### Release steps
 
 After your changes have been merged from branch to master, do the following steps.
 
@@ -102,4 +82,3 @@ After your changes have been merged from branch to master, do the following step
 
 4. ```git push origin <tag_name>```
 
-5. run script ```sh publish.sh```
