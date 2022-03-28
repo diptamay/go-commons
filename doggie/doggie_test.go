@@ -133,23 +133,23 @@ func (s *mockStatsD) New(addr string, options ...statsd.Option) (*statsd.Client,
 	return &statsd.Client{}, nil
 }
 
-//func TestMakeClient(t *testing.T) {
-//	initOnce.Do(Init)
-//
-//	chance := Chance.New()
-//	statsdMock := &mockStatsD{}
-//	if packageDependencies == nil {
-//		packageDependencies = &dependencies{}
-//	}
-//	packageDependencies.New = statsdMock.New
-//	DataDogConfig.Host = "127.0.0.1"
-//	DataDogConfig.Port = chance.IntBtw(1000, 9999)
-//
-//	statsdMock.
-//		On("New", fmt.Sprintf("%s:%d", DataDogConfig.Host, DataDogConfig.Port), nil).
-//		Return(mock.Anything, nil)
-//	namespace := chance.Word()
-//	dataDogClient, _ := MakeClient(namespace)
-//	assert.Equal(t, namespace, dataDogClient.Namespace(), "should initialize with the defined namespace")
-//	statsdMock.AssertExpectations(t)
-//}
+func TestMakeClient(t *testing.T) {
+	initOnce.Do(Init)
+
+	chance := Chance.New()
+	statsdMock := &mockStatsD{}
+	if packageDependencies == nil {
+		packageDependencies = &dependencies{}
+	}
+	packageDependencies.New = statsdMock.New
+	DataDogConfig.Host = "127.0.0.1"
+	DataDogConfig.Port = chance.IntBtw(1000, 9999)
+
+	statsdMock.
+		On("New", fmt.Sprintf("%s:%d", DataDogConfig.Host, DataDogConfig.Port), []statsd.Option(nil)).
+		Return(mock.Anything, nil)
+	namespace := chance.Word()
+	dataDogClient, _ := MakeClient(namespace)
+	assert.Equal(t, namespace, dataDogClient.Namespace(), "should initialize with the defined namespace")
+	statsdMock.AssertExpectations(t)
+}
