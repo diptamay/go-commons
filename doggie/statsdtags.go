@@ -10,30 +10,25 @@ import (
 )
 
 var (
-	dockerHostnameFilePath = "/etc/docker_hostname"
+	dockerHostnameFilePath = "/etc/hostname"
 	dockerHostname         *string
-	fullName               *string
 	imageName              *string
 	imageOwner             *string
 	workstream             *string
 )
 
-var envValueMap = map[string]func(string, *[4]string){
-	"image_full_name": func(value string, result *[4]string) {
-		fullName = &value
-		result[1] = value
-	},
-	"image_name": func(value string, result *[4]string) {
+var envValueMap = map[string]func(string, *[3]string){
+	"image_name": func(value string, result *[3]string) {
 		imageName = &value
 		result[0] = value
 	},
-	"image_owner": func(value string, result *[4]string) {
+	"image_owner": func(value string, result *[3]string) {
 		imageOwner = &value
-		result[2] = value
+		result[1] = value
 	},
-	"workstream": func(value string, result *[4]string) {
+	"workstream": func(value string, result *[3]string) {
 		workstream = &value
-		result[3] = value
+		result[2] = value
 	},
 }
 
@@ -57,23 +52,22 @@ func getDockerHostname() string {
 	return *dockerHostname
 }
 
-func getTagValuesFromEnv() *[4]string {
-	var result [4]string
-	if fullName != nil && imageName != nil && imageOwner != nil && workstream != nil {
-		result = [4]string{
+func getTagValuesFromEnv() *[3]string {
+	var result [3]string
+	if imageName != nil && imageOwner != nil && workstream != nil {
+		result = [3]string{
 			*imageName,
-			*fullName,
 			*imageOwner,
 			*workstream,
 		}
 	} else {
-		result = [4]string{}
+		result = [3]string{}
 		for _, env := range os.Environ() {
 			keyval := strings.Split(env, "=")
 			if setter, ok := envValueMap[keyval[0]]; ok {
 				setter(keyval[1], &result)
 			}
-			if fullName != nil && imageName != nil && imageOwner != nil && workstream != nil {
+			if imageName != nil && imageOwner != nil && workstream != nil {
 				break
 			}
 		}
@@ -86,7 +80,6 @@ func getDefaultTags(wg *sync.WaitGroup) *[]string {
 	result := []string{}
 	tagNames := []string{
 		"image.name:%s",
-		"image.full_name:%s",
 		"image.owner:%s",
 		"workstream:%s",
 	}

@@ -85,13 +85,11 @@ func setEnvVars() *map[string]string {
 func TestGetTagValuesFromEnv(t *testing.T) {
 	chance := Chance.New()
 	testValue := chance.Word()
-	fullName = &testValue
 	imageName = &testValue
 	imageOwner = &testValue
 	workstream = &testValue
 	expectedValues := []string{
 		*imageName,
-		*fullName,
 		*imageOwner,
 		*workstream,
 	}
@@ -99,7 +97,6 @@ func TestGetTagValuesFromEnv(t *testing.T) {
 	for index, tag := range *tags {
 		assert.Equal(t, expectedValues[index], tag, "should resolve tag values if they are already defined")
 	}
-	fullName = nil
 	imageName = nil
 	imageOwner = nil
 	workstream = nil
@@ -116,20 +113,14 @@ func TestGetTagValuesFromEnv(t *testing.T) {
 	)
 	assert.Equal(
 		t,
-		vars["image_full_name"],
-		assertionTags[1],
-		fmt.Sprintf("fullName should equal %s", vars["image_full_name"]),
-	)
-	assert.Equal(
-		t,
 		vars["image_owner"],
-		assertionTags[2],
+		assertionTags[1],
 		fmt.Sprintf("imageOwner should equal %s", vars["image_owner"]),
 	)
 	assert.Equal(
 		t,
 		vars["workstream"],
-		assertionTags[3],
+		assertionTags[2],
 		fmt.Sprintf("workstream should equal %s", vars["workstream"]),
 	)
 }
@@ -147,7 +138,6 @@ func TestGetDefaultTags(t *testing.T) {
 		fmt.Sprintf("docker_host:%s", *dockerHostname),
 		fmt.Sprintf("docker_instance:%s", processHostname),
 		fmt.Sprintf("image.name:%s", *imageName),
-		fmt.Sprintf("image.full_name:%s", *fullName),
 		fmt.Sprintf("image.owner:%s", *imageOwner),
 		fmt.Sprintf("workstream:%s", *workstream),
 	}
