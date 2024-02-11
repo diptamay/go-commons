@@ -47,7 +47,7 @@ func (suite *S3BucketsTestSuite) SetupTest() {
 		panic(err)
 	}
 	Crypter = crypter
-	bucketName = aws.String("logiflows-test")
+	bucketName = aws.String("go-test")
 }
 
 type MockCrypter struct {
@@ -233,7 +233,7 @@ func (suite *S3BucketsTestSuite) TestUpload() {
 
 	key := chance.Word()
 	expected := &s3manager.UploadInput{
-		Bucket: aws.String("logiflows-test"),
+		Bucket: aws.String("go-test"),
 		Key:    aws.String(key),
 		Body:   bytes.NewReader(value),
 	}
@@ -283,7 +283,7 @@ func (suite *S3BucketsTestSuite) TestUploadWithTag() {
 	key := chance.Word()
 	tag := "key=value"
 	expected := &s3manager.UploadInput{
-		Bucket:  aws.String("logiflows-test"),
+		Bucket:  aws.String("go-test"),
 		Key:     aws.String(key),
 		Body:    bytes.NewReader(value),
 		Tagging: aws.String(tag),
@@ -399,7 +399,7 @@ func (suite *S3BucketsTestSuite) TestGetS3BucketSessionNoLocalstack() {
 
 func (suite *S3BucketsTestSuite) TestInitializeS3BucketCreatedWhenLocalstackIsEnabled() {
 	mockInitBucket := new(MockInitBucketHeadErrorS3API)
-	bucketName := aws.String("logiflows-test-1")
+	bucketName := aws.String("go-test-1")
 	localStackAddr := aws.String("localstack")
 	ctx := context.Background()
 	MockInitBucket := makeInitializeS3Bucket(mockInitBucket)
@@ -425,7 +425,7 @@ func (suite *S3BucketsTestSuite) TestInitializeS3BucketCreatedWhenLocalstackIsEn
 
 func (suite *S3BucketsTestSuite) TestInitializeS3BucketNotCreatedWhenLocalstackDisabled() {
 	mockInitBucket := new(MockInitBucketS3API)
-	bucketName := aws.String("logiflows-test-1")
+	bucketName := aws.String("go-test-1")
 	ctx := context.Background()
 	MockInitBucket := makeInitializeS3Bucket(mockInitBucket)
 
@@ -443,7 +443,7 @@ func (suite *S3BucketsTestSuite) TestInitializeS3BucketNotCreatedWhenLocalstackD
 
 func (suite *S3BucketsTestSuite) TestInitializeS3BucketErrorReturnedIfBucketDoesNotExist() {
 	mockInitBucket := new(MockInitBucketHeadErrorS3API)
-	bucketName := aws.String("logiflows-test-1")
+	bucketName := aws.String("go-test-1")
 	ctx := context.Background()
 	MockInitBucket := makeInitializeS3Bucket(mockInitBucket)
 
@@ -460,7 +460,7 @@ func (suite *S3BucketsTestSuite) TestInitializeS3BucketErrorReturnedIfBucketDoes
 
 func (suite *S3BucketsTestSuite) TestInitializeS3BucketCreateFails() {
 	mockInitBucket := new(MockInitBucketCreateErrorS3API)
-	bucketName := aws.String("logiflows-test-1")
+	bucketName := aws.String("go-test-1")
 	localStackAddr := aws.String("localstack")
 	ctx := context.Background()
 	MockInitBucket := makeInitializeS3Bucket(mockInitBucket)
@@ -482,7 +482,7 @@ func (suite *S3BucketsTestSuite) TestInitializeS3BucketCreateFails() {
 
 func (suite *S3BucketsTestSuite) TestInitializeS3BucketExists() {
 	mockInitBucket := new(MockInitBucketS3API)
-	bucketName := aws.String("logiflows-test-1")
+	bucketName := aws.String("go-test-1")
 	ctx := context.Background()
 	MockInitBucket := makeInitializeS3Bucket(mockInitBucket)
 

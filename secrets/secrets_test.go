@@ -80,7 +80,7 @@ func TestDetermineSecretName(t *testing.T) {
 	assert.Equal(t, "name", res, "the returned secret name should equal to the environment variable SECRET_NAME")
 	os.Setenv("SECRET_NAME", "")
 	res = DetermineSecretName()
-	assert.Equal(t, "service.ENCRYPTION_KEY", res, "the returned secret name should equal to the logiflows service encryption key")
+	assert.Equal(t, "service.ENCRYPTION_KEY", res, "the returned secret name should equal to the service encryption key")
 	os.Setenv("SERVICE_8080_NAME", "name")
 	res = DetermineSecretName()
 	assert.Equal(t, "name.ENCRYPTION_KEY", res, "the returned secret name should equal to the environment variable plus encryption key")

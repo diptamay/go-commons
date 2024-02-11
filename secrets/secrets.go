@@ -107,8 +107,8 @@ func GetSecretsFromAWSSecretManager(secretName string) (*Secret, error) {
 	}
 }
 
-//determine the secret name the runtime needed based on different logiflows service running which DL is attaching to.
-//sample: the secret of logiflows-service: "service.ENCRYPTION_KEY"
+// determine the secret name the runtime needed based on different service running which DL is attaching to.
+// sample: the secret of go-service: "service.ENCRYPTION_KEY"
 func DetermineSecretName() string {
 	secretName := os.Getenv("SECRET_NAME")
 	if secretName != "" {

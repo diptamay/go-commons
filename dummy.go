@@ -1,4 +1,4 @@
-package logiflows_go_commons
+package go_commons
 
 import (
 	"fmt"
